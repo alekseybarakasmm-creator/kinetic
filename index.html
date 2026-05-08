@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KINETIC | Премиальное фитнес-пространство</title>
-    <meta name="description" content="Закрытый фитнес-клуб. Создай свою лучшую версию.">
+    <title>KINETIC | Приватный High-Performance центр</title>
+    <meta name="description" content="Трансформация. Результат. Закрытый клуб для тех, кто требует максимума.">
     
-    <!-- Шрифты: Брутальный Teko для заголовков, Inter для чтения -->
+    <!-- Шрифты: Кинематографичный Oswald для заголовков, Inter для текста -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -18,453 +18,452 @@
             theme: {
                 extend: {
                     colors: {
-                        k: { bg: '#030303', surface: '#0d0d0d', border: '#1f1f1f', accent: '#e50914', text: '#f5f5f5', muted: '#737373' }
+                        k: { 
+                            bg: '#070709', /* Глубокий графит */
+                            surface: '#111114', 
+                            border: '#222226', 
+                            text: '#f8fafc', 
+                            muted: '#8b8b99',
+                            orange: '#ea580c', /* CrossFit / Энергия */
+                            blue: '#2563eb', /* MMA / Сфокусированность */
+                            green: '#10b981', /* Rehab / Здоровье */
+                            red: '#e11d48' /* Medical */
+                        }
                     },
-                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Teko', 'sans-serif'] }
+                    fontFamily: { 
+                        sans: ['Inter', 'sans-serif'], 
+                        display: ['Oswald', 'sans-serif'] 
+                    }
                 }
             }
         }
     </script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #030303; color: #f5f5f5; overflow-x: hidden; }
-        h1, h2, h3, .font-display { font-family: 'Teko', sans-serif; text-transform: uppercase; line-height: 1; letter-spacing: 0.02em; }
+        body { font-family: 'Inter', sans-serif; background-color: #070709; color: #f8fafc; overflow-x: hidden; }
+        h1, h2, h3, .font-display { font-family: 'Oswald', sans-serif; text-transform: uppercase; line-height: 1.1; letter-spacing: 0.02em; }
         
-        /* Утилиты */
-        .glass-header { background: rgba(3, 3, 3, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .text-outline { color: transparent; -webkit-text-stroke: 1px #333; }
+        /* Виньетка и градиенты для эффекта Chiaroscuro */
+        .cinematic-vignette {
+            position: fixed; inset: 0; pointer-events: none; z-index: 40;
+            background: radial-gradient(circle at center, transparent 30%, rgba(7, 7, 9, 0.9) 100%);
+        }
+        .glass-header { background: rgba(7, 7, 9, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
         
-        /* Анимации SPA */
+        /* SPA Анимация переходов */
         .js-page-view { display: none; opacity: 0; }
-        .js-page-view.is-active { display: block; animation: cinematicFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .js-page-view.is-active { display: block; animation: cinematicFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes cinematicFade { 
-            from { opacity: 0; transform: scale(1.02) translateY(10px); filter: blur(4px); } 
-            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); } 
+            from { opacity: 0; transform: translateY(20px); filter: blur(10px); } 
+            to { opacity: 1; transform: translateY(0); filter: blur(0); } 
         }
 
-        /* Кинематографичные фото с hover-эффектом */
-        .cinematic-img { filter: grayscale(100%) contrast(1.2) brightness(0.8); transition: filter 0.5s ease, transform 0.7s ease; }
-        .group:hover .cinematic-img { filter: grayscale(0%) contrast(1.1) brightness(1); transform: scale(1.05); }
+        /* Кинематографичные фотофильтры */
+        .cinematic-img { filter: grayscale(100%) contrast(1.1) brightness(0.7); transition: all 0.7s ease; }
+        .group:hover .cinematic-img { filter: grayscale(20%) contrast(1.2) brightness(1); transform: scale(1.05); }
         
-        /* Кнопки */
-        .btn-kinetic {
-            position: relative; overflow: hidden; background: transparent; color: white; border: 1px solid var(--color-k-border, #1f1f1f);
-            padding: 1rem 2.5rem; font-family: 'Teko', sans-serif; font-size: 1.5rem; letter-spacing: 0.05em; text-transform: uppercase;
-            transition: all 0.3s ease; z-index: 1;
+        /* Premium Buttons */
+        .btn-premium {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem;
+            background: #f8fafc; color: #070709; border: none;
+            padding: 1.25rem 2.5rem; font-family: 'Oswald', sans-serif; font-size: 1.25rem; letter-spacing: 0.05em; text-transform: uppercase;
+            transition: all 0.3s ease; cursor: pointer;
         }
-        .btn-kinetic::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: #e50914; transition: all 0.4s cubic-bezier(0.86, 0, 0.07, 1); z-index: -1;
+        .btn-premium:hover { background: #cbd5e1; transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(255,255,255,0.1); }
+        
+        .btn-outline {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem;
+            background: transparent; color: #f8fafc; border: 1px solid #222226;
+            padding: 1.25rem 2.5rem; font-family: 'Oswald', sans-serif; font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase;
+            transition: all 0.3s ease; cursor: pointer;
         }
-        .btn-kinetic:hover::before { left: 0; }
-        .btn-kinetic:hover { border-color: #e50914; }
+        .btn-outline:hover { border-color: #f8fafc; background: rgba(255,255,255,0.05); }
 
-        /* Выезжающая боковая панель (Offcanvas) */
-        .side-panel {
-            position: fixed; top: 0; right: -100%; width: 100%; max-width: 480px; height: 100vh;
-            background: #0d0d0d; z-index: 1000; border-left: 1px solid #1f1f1f;
-            box-shadow: -20px 0 50px rgba(0,0,0,0.5);
-            transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1); overflow-y: auto;
-        }
-        .side-panel.is-open { right: 0; }
-        .panel-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
-            z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
-        }
-        .panel-overlay.is-open { opacity: 1; pointer-events: auto; }
+        /* Инфраструктура: Табы */
+        .infra-tab { border-left: 3px solid transparent; transition: all 0.3s; opacity: 0.4; }
+        .infra-tab.active { border-left-color: #ea580c; opacity: 1; background: rgba(255,255,255,0.03); }
+        .infra-content { display: none; }
+        .infra-content.active { display: block; animation: fadeIn 0.6s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Модальные окна */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(7, 7, 9, 0.95); backdrop-filter: blur(10px); z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        .modal-overlay.is-open { opacity: 1; pointer-events: auto; }
         
-        /* Инпуты */
-        .form-input {
-            width: 100%; background: transparent; border: none; border-bottom: 2px solid #333;
-            color: white; padding: 1rem 0; font-size: 1rem; transition: border-color 0.3s;
-            border-radius: 0;
-        }
-        .form-input:focus { outline: none; border-bottom-color: #e50914; }
+        .slide-modal { position: fixed; top: 0; right: -100%; width: 100%; max-width: 650px; height: 100vh; background: #070709; z-index: 150; border-left: 1px solid #222226; transition: right 0.6s cubic-bezier(0.77, 0, 0.175, 1); overflow-y: auto; }
+        .slide-modal.is-open { right: 0; }
+
+        .center-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -45%); width: 95%; max-width: 900px; background: #111114; z-index: 200; border: 1px solid #222226; opacity: 0; pointer-events: none; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .center-modal.is-open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%); }
+
+        .form-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: white; padding: 1.25rem 0; font-size: 1.1rem; transition: border-color 0.3s; border-radius: 0; }
+        .form-input:focus { outline: none; border-bottom-color: #f8fafc; }
     </style>
 </head>
-<body class="selection:bg-k-accent selection:text-white flex flex-col min-h-screen">
+<body class="selection:bg-white selection:text-black flex flex-col min-h-screen">
 
-    <!-- HEADER (SPA НАВИГАЦИЯ) -->
+    <div class="cinematic-vignette"></div>
+
+    <!-- HEADER -->
     <header class="fixed w-full z-50 glass-header">
-        <div class="max-w-[1400px] mx-auto px-6 h-24 flex justify-between items-center">
-            <!-- Логотип -->
-            <button class="flex items-center gap-2 js-nav-link focus:outline-none group" data-target="page-home">
-                <div class="w-10 h-10 bg-k-accent flex items-center justify-center transform -skew-x-12 group-hover:scale-110 transition-transform">
-                    <i class="ph-bold ph-barbell text-white text-xl"></i>
+        <div class="max-w-[1500px] mx-auto px-8 h-24 flex justify-between items-center">
+            <button class="flex items-center gap-4 js-nav-link focus:outline-none group" data-target="page-home">
+                <div class="w-12 h-12 border border-white flex items-center justify-center group-hover:bg-white transition-all">
+                    <i class="ph-bold ph-barbell text-white group-hover:text-black text-2xl transition-colors"></i>
                 </div>
-                <span class="font-display text-4xl tracking-wider mt-1">KINETIC</span>
+                <span class="font-display text-4xl tracking-[0.15em] mt-1">KINETIC</span>
             </button>
             
-            <!-- Десктоп Меню -->
-            <nav class="hidden md:flex gap-10 items-center mt-1">
-                <button class="js-nav-link font-display text-2xl tracking-widest text-white hover:text-k-accent transition-colors" data-target="page-club">О клубе</button>
-                <button class="js-nav-link font-display text-2xl tracking-widest text-k-muted hover:text-k-accent transition-colors" data-target="page-programs">Программы</button>
-                <button class="js-nav-link font-display text-2xl tracking-widest text-k-muted hover:text-k-accent transition-colors" data-target="page-trainers">Тренеры</button>
+            <nav class="hidden lg:flex gap-12 items-center mt-1">
+                <button class="js-nav-link font-display text-2xl tracking-widest text-k-muted hover:text-white transition-colors" data-target="page-infra">Инфраструктура</button>
+                <button class="js-nav-link font-display text-2xl tracking-widest text-k-muted hover:text-white transition-colors" data-target="page-programs">Направления</button>
+                <button class="js-nav-link font-display text-2xl tracking-widest text-k-muted hover:text-white transition-colors" data-target="page-team">Команда</button>
             </nav>
 
-            <!-- Кнопка вызова боковой панели -->
-            <div class="flex items-center gap-6">
-                <button class="hidden lg:block font-display text-xl tracking-widest hover:text-k-accent transition-colors mt-1">8 (495) 123-45-67</button>
-                <button class="btn-kinetic hidden md:block js-panel-trigger">Гостевой визит</button>
-                <button class="md:hidden text-white js-panel-trigger"><i class="ph ph-list text-3xl"></i></button>
+            <div class="flex items-center gap-8">
+                <button class="btn-outline hidden sm:flex js-book-trigger" data-service="Гостевой визит">Запланировать визит</button>
+                <button class="lg:hidden text-white"><i class="ph ph-list text-4xl"></i></button>
             </div>
         </div>
     </header>
 
     <main class="flex-grow">
         
-        <!-- СТРАНИЦА 1: ГЛАВНАЯ (HERO) -->
+        <!-- СТРАНИЦА 1: ГЛАВНАЯ -->
         <article id="page-home" class="js-page-view is-active">
             <section class="relative w-full h-screen flex items-center overflow-hidden">
-                <!-- Темный фоновый имидж/видео -->
                 <div class="absolute inset-0 z-0">
-                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1920&q=80" alt="Gym" class="w-full h-full object-cover filter brightness-[0.3] contrast-[1.2] grayscale">
-                    <div class="absolute inset-0 bg-gradient-to-r from-k-bg via-k-bg/80 to-transparent"></div>
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1920&q=80" alt="Gym" class="w-full h-full object-cover cinematic-img filter brightness-[0.4]">
+                    <div class="absolute inset-0 bg-gradient-to-r from-k-bg via-k-bg/70 to-transparent"></div>
                 </div>
                 
-                <div class="max-w-[1400px] mx-auto px-6 relative z-10 w-full pt-20">
-                    <div class="max-w-3xl">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-[2px] bg-k-accent"></div>
-                            <span class="font-display text-xl tracking-[0.2em] text-k-accent">Премиальное пространство</span>
+                <div class="max-w-[1500px] mx-auto px-8 relative z-10 w-full pt-20">
+                    <div class="max-w-4xl">
+                        <div class="flex items-center gap-6 mb-8">
+                            <div class="w-16 h-[1px] bg-white"></div>
+                            <span class="font-display text-xl tracking-[0.3em] text-white">Приватный High-Performance центр</span>
                         </div>
-                        <h1 class="text-7xl md:text-[120px] font-display uppercase tracking-tight mb-6">
-                            Создай свое <br><span class="text-outline">наследие</span>
+                        <h1 class="text-7xl md:text-[110px] font-display uppercase tracking-tight mb-10 leading-[0.85]">
+                            Трансформация.<br>Результат.
                         </h1>
-                        <p class="text-lg text-k-muted max-w-lg mb-12 leading-relaxed">
-                            Закрытый клуб для тех, кто требует от себя и окружающих максимума. Тренажеры Technogym, персональный подход и атмосфера абсолютной концентрации.
+                        <p class="text-xl text-k-muted max-w-xl mb-14 leading-relaxed font-light">
+                            Место для тех, кто требует от себя максимума. Спортивная медицина, биомеханический контроль и наставники чемпионского уровня.
                         </p>
-                        <button class="btn-kinetic js-panel-trigger">Стать резидентом</button>
+                        <button class="btn-premium js-book-trigger" data-service="Персональный аудит">Начать работу с наставником</button>
                     </div>
-                </div>
-
-                <!-- Вертикальный скролл-индикатор -->
-                <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-                    <span class="font-display tracking-widest text-sm uppercase">Explore</span>
-                    <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
                 </div>
             </section>
         </article>
 
-        <!-- СТРАНИЦА 2: О КЛУБЕ (Галерея) -->
-        <article id="page-club" class="js-page-view">
-            <section class="pt-40 pb-24 px-6 max-w-[1400px] mx-auto min-h-screen">
+        <!-- СТРАНИЦА 2: ИНФРАСТРУКТУРА (Дашборд) -->
+        <article id="page-infra" class="js-page-view">
+            <section class="pt-48 pb-32 px-8 max-w-[1500px] mx-auto min-h-screen">
                 <div class="mb-20">
-                    <h2 class="text-5xl md:text-8xl font-display mb-4">Философия <span class="text-k-accent">Kinetic</span></h2>
-                    <p class="text-k-muted text-xl max-w-2xl">Мы отказались от компромиссов. Здесь нет толп, очередей к тренажерам и отвлекающих факторов. Только ты, железо и твоя цель.</p>
+                    <h2 class="text-6xl md:text-8xl font-display mb-6">Инфраструктура <span class="text-k-muted">Клуба</span></h2>
+                    <p class="text-k-muted text-2xl max-w-3xl leading-relaxed font-light">Экосистема технологий для вашей производительности и восстановления.</p>
                 </div>
                 
-                <!-- Асимметричная галерея -->
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                    <div class="md:col-span-8 h-[500px] group overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1200&q=80" alt="Тренажерный зал" class="w-full h-full object-cover cinematic-img">
-                        <div class="absolute bottom-6 left-6 font-display text-4xl">Тренажерный зал</div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                    <!-- Левая колонка: Табы -->
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <button class="infra-tab active text-left p-8 bg-k-surface font-display text-3xl uppercase tracking-widest" data-tab="infra-crio">Криотерапия</button>
+                        <button class="infra-tab text-left p-8 bg-k-surface font-display text-3xl uppercase tracking-widest" data-tab="infra-bio">Биомеханика (InBody)</button>
+                        <button class="infra-tab text-left p-8 bg-k-surface font-display text-3xl uppercase tracking-widest" data-tab="infra-massage">Спортивный массаж</button>
                     </div>
-                    <div class="md:col-span-4 h-[500px] group overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=800&q=80" alt="Зона кардио" class="w-full h-full object-cover cinematic-img">
-                        <div class="absolute bottom-6 left-6 font-display text-4xl">Кардио</div>
-                    </div>
-                    <div class="md:col-span-4 h-[400px] group overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80" alt="Раздевалки" class="w-full h-full object-cover cinematic-img">
-                        <div class="absolute bottom-6 left-6 font-display text-3xl">SPA Зона</div>
-                    </div>
-                    <div class="md:col-span-8 h-[400px] bg-k-surface p-12 flex flex-col justify-center border border-k-border">
-                        <i class="ph-fill ph-quotes text-k-accent text-6xl mb-6"></i>
-                        <h3 class="font-display text-5xl mb-4 leading-tight">Мы создали место, куда хочется возвращаться. Даже когда болят мышцы.</h3>
-                        <div class="text-k-muted">Alex Mercer, Head Coach</div>
+                    
+                    <!-- Правая колонка: Контент -->
+                    <div class="lg:col-span-8 bg-k-surface border border-k-border p-10 md:p-16 relative overflow-hidden min-h-[600px] flex flex-col justify-center">
+                        <!-- Крио -->
+                        <div id="infra-crio" class="infra-content active">
+                            <div class="text-k-green font-display tracking-[0.2em] uppercase mb-6 text-base">Deep Recovery</div>
+                            <h3 class="font-display text-6xl mb-8">Локальная Криотерапия</h3>
+                            <p class="text-k-muted text-xl mb-10 leading-relaxed max-w-3xl">Ускоряет регенерацию тканей на 40%, купирует воспалительные процессы и мгновенно восстанавливает ЦНС. Процедура проводится на флагманском аппарате <strong>Cryo-Science Arctic</strong>.</p>
+                            
+                            <div class="border-t border-k-border pt-10 mt-10 flex items-center justify-between flex-wrap gap-10">
+                                <div class="flex items-center gap-6 cursor-pointer group js-spec-trigger" data-id="anna-weiss">
+                                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=200&q=80" alt="Д-р Анна Вейсс" class="w-20 h-20 rounded-full object-cover filter grayscale group-hover:grayscale-0 transition-all border border-k-border group-hover:border-k-green">
+                                    <div>
+                                        <div class="font-display text-2xl group-hover:text-k-green transition-colors">Д-р Анна Вейсс</div>
+                                        <div class="text-base text-k-muted font-light">Спортивный врач, к.м.н. (12 лет опыта)</div>
+                                    </div>
+                                </div>
+                                <button class="btn-outline js-book-trigger" data-service="Сессия Криотерапии (Д-р Вейсс)">Запросить сессию</button>
+                            </div>
+                        </div>
+
+                        <!-- InBody -->
+                        <div id="infra-bio" class="infra-content">
+                            <div class="text-k-blue font-display tracking-[0.2em] uppercase mb-6 text-base">Digital Audit</div>
+                            <h3 class="font-display text-6xl mb-8">Анализ состава тела InBody</h3>
+                            <p class="text-k-muted text-xl mb-10 leading-relaxed max-w-3xl">Медицинская точность анализа (98%). Мы измеряем процент висцерального жира, клеточную воду и мышечную массу для корректировки вашей стратегии. Оборудование <strong>InBody 770</strong>.</p>
+                            
+                            <div class="border-t border-k-border pt-10 mt-10 flex items-center justify-between flex-wrap gap-10">
+                                <div class="flex items-center gap-6 cursor-pointer group js-spec-trigger" data-id="sofia-lee">
+                                    <img src="https://images.unsplash.com/photo-1594824436951-7f12bc31b4b1?auto=format&fit=crop&w=200&q=80" alt="Д-р София Ли" class="w-20 h-20 rounded-full object-cover filter grayscale group-hover:grayscale-0 transition-all border border-k-border group-hover:border-k-blue">
+                                    <div>
+                                        <div class="font-display text-2xl group-hover:text-k-blue transition-colors">Д-р София Ли</div>
+                                        <div class="text-base text-k-muted font-light">Эндокринолог, Нутрициолог</div>
+                                    </div>
+                                </div>
+                                <button class="btn-outline js-book-trigger" data-service="Анализ InBody (Д-р Ли)">Запросить аудит</button>
+                            </div>
+                        </div>
+
+                        <!-- Массаж -->
+                        <div id="infra-massage" class="infra-content">
+                            <div class="text-k-orange font-display tracking-[0.2em] uppercase mb-6 text-base">Muscle Release</div>
+                            <h3 class="font-display text-6xl mb-8">Спортивный массаж</h3>
+                            <p class="text-k-muted text-xl mb-10 leading-relaxed max-w-3xl">Глубокотканный массаж и миофасциальный релиз. Устранение триггеров и фасциальных зажимов с использованием перкуссии <strong>Theragun PRO</strong>.</p>
+                            
+                            <div class="border-t border-k-border pt-10 mt-10 flex items-center justify-between flex-wrap gap-10">
+                                <div class="flex items-center gap-6 cursor-pointer group js-spec-trigger" data-id="mikhail-isaev">
+                                    <img src="https://images.unsplash.com/photo-1611506109961-9c60eec874b0?auto=format&fit=crop&w=200&q=80" alt="Михаил Исаев" class="w-20 h-20 rounded-full object-cover filter grayscale group-hover:grayscale-0 transition-all border border-k-border group-hover:border-k-orange">
+                                    <div>
+                                        <div class="font-display text-2xl group-hover:text-k-orange transition-colors">Михаил Исаев</div>
+                                        <div class="text-base text-k-muted font-light">Мануальный терапевт. Реабилитолог.</div>
+                                    </div>
+                                </div>
+                                <button class="btn-outline js-book-trigger" data-service="Спортивный массаж (М. Исаев)">Назначить визит</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
         </article>
 
-        <!-- СТРАНИЦА 3: ПРОГРАММЫ (Карточки) -->
+        <!-- СТРАНИЦА 3: НАПРАВЛЕНИЯ -->
         <article id="page-programs" class="js-page-view">
-            <section class="pt-40 pb-24 px-6 max-w-[1400px] mx-auto min-h-screen">
-                <h2 class="text-5xl md:text-8xl font-display mb-16 text-center">Выбери свой <span class="text-outline">путь</span></h2>
+            <section class="pt-48 pb-32 px-8 max-w-[1500px] mx-auto min-h-screen">
+                <h2 class="text-6xl md:text-8xl font-display mb-20 text-center text-white">Направления <span class="text-k-muted">тренинга</span></h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Программа 1 -->
-                    <div class="group cursor-pointer relative bg-k-surface border border-k-border overflow-hidden flex flex-col justify-end h-[500px] p-8">
-                        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80" alt="Crossfit" class="absolute inset-0 w-full h-full object-cover opacity-20 cinematic-img transition-opacity group-hover:opacity-40">
-                        <div class="absolute inset-0 bg-gradient-to-t from-k-bg to-transparent"></div>
-                        <div class="relative z-10">
-                            <div class="text-k-accent font-display text-2xl mb-2">01</div>
-                            <h3 class="font-display text-5xl mb-4">Crossfit & HIIT</h3>
-                            <p class="text-k-muted text-sm mb-6">Высокоинтенсивные функциональные тренировки для экстремальной выносливости и рельефа.</p>
-                            <button class="btn-kinetic w-full !text-xl !py-3 js-panel-trigger">Записаться</button>
+                    <!-- CrossFit -->
+                    <div class="group cursor-pointer relative bg-k-surface border border-k-border overflow-hidden flex flex-col justify-end h-[650px] p-10 js-discipline-trigger" data-discipline="crossfit">
+                        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80" alt="Crossfit" class="absolute inset-0 w-full h-full object-cover opacity-30 cinematic-img group-hover:opacity-60">
+                        <div class="absolute inset-0 bg-gradient-to-t from-k-bg via-k-bg/60 to-transparent"></div>
+                        <div class="relative z-10 transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
+                            <div class="text-k-orange font-display text-3xl mb-3 tracking-widest">01</div>
+                            <h3 class="font-display text-6xl mb-6 group-hover:text-k-orange transition-colors">CrossFit</h3>
+                            <p class="text-k-muted text-base mb-8 opacity-0 group-hover:opacity-100 transition-opacity">Экстремальная система подготовки. Узнать больше →</p>
                         </div>
                     </div>
 
-                    <!-- Программа 2 -->
-                    <div class="group cursor-pointer relative bg-k-surface border border-k-border overflow-hidden flex flex-col justify-end h-[500px] p-8">
-                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80" alt="Personal Training" class="absolute inset-0 w-full h-full object-cover opacity-20 cinematic-img transition-opacity group-hover:opacity-40">
-                        <div class="absolute inset-0 bg-gradient-to-t from-k-bg to-transparent"></div>
-                        <div class="relative z-10">
-                            <div class="text-k-accent font-display text-2xl mb-2">02</div>
-                            <h3 class="font-display text-5xl mb-4">Personal T.</h3>
-                            <p class="text-k-muted text-sm mb-6">Индивидуальная работа с наставником. Биомеханика, постановка техники и нутрициология.</p>
-                            <button class="btn-kinetic w-full !text-xl !py-3 js-panel-trigger">Выбрать тренера</button>
+                    <!-- MMA -->
+                    <div class="group cursor-pointer relative bg-k-surface border border-k-border overflow-hidden flex flex-col justify-end h-[650px] p-10 js-discipline-trigger" data-discipline="mma">
+                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=800&q=80" alt="MMA" class="absolute inset-0 w-full h-full object-cover opacity-30 cinematic-img group-hover:opacity-60">
+                        <div class="absolute inset-0 bg-gradient-to-t from-k-bg via-k-bg/60 to-transparent"></div>
+                        <div class="relative z-10 transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
+                            <div class="text-k-blue font-display text-3xl mb-3 tracking-widest">02</div>
+                            <h3 class="font-display text-6xl mb-6 group-hover:text-k-blue transition-colors">Fight Club</h3>
+                            <p class="text-k-muted text-base mb-8 opacity-0 group-hover:opacity-100 transition-opacity">Бокс и MMA под руководством чемпионов. Узнать больше →</p>
                         </div>
                     </div>
 
-                    <!-- Программа 3 -->
-                    <div class="group cursor-pointer relative bg-k-surface border border-k-border overflow-hidden flex flex-col justify-end h-[500px] p-8">
-                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=800&q=80" alt="Martial Arts" class="absolute inset-0 w-full h-full object-cover opacity-20 cinematic-img transition-opacity group-hover:opacity-40">
-                        <div class="absolute inset-0 bg-gradient-to-t from-k-bg to-transparent"></div>
-                        <div class="relative z-10">
-                            <div class="text-k-accent font-display text-2xl mb-2">03</div>
-                            <h3 class="font-display text-5xl mb-4">Fight Club</h3>
-                            <p class="text-k-muted text-sm mb-6">Зона единоборств. Бокс, тайский бокс и ММА в мини-группах под руководством профи.</p>
-                            <button class="btn-kinetic w-full !text-xl !py-3 js-panel-trigger">Вступить в клуб</button>
+                    <!-- Personal -->
+                    <div class="group cursor-pointer relative bg-k-surface border border-k-border overflow-hidden flex flex-col justify-end h-[650px] p-10 js-discipline-trigger" data-discipline="personal">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80" alt="Personal" class="absolute inset-0 w-full h-full object-cover opacity-30 cinematic-img group-hover:opacity-60">
+                        <div class="absolute inset-0 bg-gradient-to-t from-k-bg via-k-bg/60 to-transparent"></div>
+                        <div class="relative z-10 transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
+                            <div class="text-white font-display text-3xl mb-3 tracking-widest">03</div>
+                            <h3 class="font-display text-6xl mb-6 group-hover:text-white transition-colors">Personal</h3>
+                            <p class="text-k-muted text-base mb-8 opacity-0 group-hover:opacity-100 transition-opacity">Индивидуальная стратегия трансформации. Узнать больше →</p>
                         </div>
                     </div>
                 </div>
             </section>
         </article>
 
-        <!-- СТРАНИЦА 4: ТРЕНЕРЫ -->
-        <article id="page-trainers" class="js-page-view">
-            <section class="pt-40 pb-24 px-6 max-w-[1400px] mx-auto min-h-screen">
-                <h2 class="text-5xl md:text-8xl font-display mb-4 text-center">Ваши <span class="text-k-accent">наставники</span></h2>
-                <p class="text-k-muted text-center max-w-2xl mx-auto mb-16">Действующие выступающие атлеты, мастера спорта и реабилитологи.</p>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Тренер 1 -->
-                    <div class="group relative aspect-[3/4] overflow-hidden border border-k-border bg-k-surface cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1583465555627-142f3607fc8d?auto=format&fit=crop&w=600&q=80" alt="Тренер" class="w-full h-full object-cover cinematic-img">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="absolute bottom-0 left-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                            <div class="text-k-accent font-display tracking-widest uppercase mb-1">Elite Trainer</div>
-                            <h3 class="font-display text-4xl mb-1">Марк Романов</h3>
-                            <p class="text-sm text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity delay-100">МСМК по пауэрлифтингу. Стаж 12 лет.</p>
-                        </div>
-                    </div>
-                    <!-- Тренер 2 -->
-                    <div class="group relative aspect-[3/4] overflow-hidden border border-k-border bg-k-surface cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=600&q=80" alt="Тренер" class="w-full h-full object-cover cinematic-img">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="absolute bottom-0 left-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                            <div class="text-k-accent font-display tracking-widest uppercase mb-1">Master Trainer</div>
-                            <h3 class="font-display text-4xl mb-1">Елена Коста</h3>
-                            <p class="text-sm text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity delay-100">CrossFit Level 2. Функциональный тренинг.</p>
-                        </div>
-                    </div>
-                    <!-- Тренер 3 -->
-                    <div class="group relative aspect-[3/4] overflow-hidden border border-k-border bg-k-surface cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" alt="Тренер" class="w-full h-full object-cover cinematic-img">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="absolute bottom-0 left-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                            <div class="text-k-accent font-display tracking-widest uppercase mb-1">Fight Coach</div>
-                            <h3 class="font-display text-4xl mb-1">Али Хан</h3>
-                            <p class="text-sm text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity delay-100">Тренер по боксу и ММА. Про-боец.</p>
-                        </div>
-                    </div>
-                    <!-- Тренер 4 -->
-                    <div class="group relative aspect-[3/4] overflow-hidden border border-k-border bg-k-surface cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1611506109961-9c60eec874b0?auto=format&fit=crop&w=600&q=80" alt="Тренер" class="w-full h-full object-cover cinematic-img">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="absolute bottom-0 left-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                            <div class="text-k-accent font-display tracking-widest uppercase mb-1">Rehab Expert</div>
-                            <h3 class="font-display text-4xl mb-1">Анна Вейсс</h3>
-                            <p class="text-sm text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity delay-100">Спортивная медицина, Пилатес, Йога.</p>
-                        </div>
-                    </div>
+        <!-- СТРАНИЦА 4: КОМАНДА -->
+        <article id="page-team" class="js-page-view">
+            <section class="pt-48 pb-32 px-8 max-w-[1500px] mx-auto min-h-screen text-center">
+                <h2 class="text-6xl md:text-8xl font-display mb-8 text-white">Команда <span class="text-k-muted">Экспертов</span></h2>
+                <p class="text-k-muted text-2xl max-w-3xl mx-auto mb-20 font-light leading-relaxed">Действующие атлеты, врачи и реабилитологи High-Performance уровня.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="team-grid">
+                    <!-- Контент генерируется через JS -->
                 </div>
             </section>
         </article>
     </main>
 
-    <!-- Подвал (Отображается на всех страницах) -->
-    <footer class="border-t border-k-border bg-black py-12 text-center text-k-muted text-sm mt-auto">
-        <div class="font-display text-3xl text-white mb-4">KINETIC FITNESS CLUB</div>
-        <p>Москва, ул. Энергетиков, 10, Башня 2</p>
-        <p class="mt-4 opacity-50">© 2026 KINETIC. Designed for Performance.</p>
+    <footer class="border-t border-k-border bg-k-bg py-16 text-center text-k-muted text-sm relative z-10">
+        <div class="font-display text-3xl tracking-[0.2em] text-white mb-6">KINETIC CLUB</div>
+        <p class="text-base">Москва, Деловой центр, Башня 2</p>
+        <p class="mt-6 opacity-40 uppercase tracking-widest">© 2026 KINETIC. Designed for Peak Performance.</p>
     </footer>
 
-    <!-- АРХИТЕКТУРА 3: ВЫЕЗЖАЮЩАЯ БОКОВАЯ ПАНЕЛЬ (Offcanvas) -->
-    <div class="panel-overlay js-panel-close"></div>
-    <aside class="side-panel flex flex-col">
-        <!-- Шапка панели -->
-        <div class="p-6 md:p-10 border-b border-k-border flex justify-between items-center bg-black sticky top-0 z-10">
-            <h2 class="font-display text-5xl tracking-wide m-0">Гостевой <span class="text-k-accent">визит</span></h2>
-            <button class="text-k-muted hover:text-white transition-colors focus:outline-none js-panel-close">
-                <i class="ph ph-x text-3xl"></i>
-            </button>
+    <!-- МОДАЛЬНЫЕ ОКНА -->
+    <div class="modal-overlay js-modal-close"></div>
+
+    <!-- 1. ФОРМА ЗАЯВКИ (Slide-over) -->
+    <aside id="form-modal" class="slide-modal flex flex-col" style="z-index: 300;">
+        <div class="p-10 border-b border-k-border flex justify-between items-center bg-k-bg sticky top-0 z-10">
+            <h2 class="font-display text-5xl m-0 tracking-wide">Планирование <span class="text-k-muted">визита</span></h2>
+            <button class="text-k-muted hover:text-white js-modal-close focus:outline-none"><i class="ph ph-x text-4xl"></i></button>
         </div>
-        
-        <!-- Контент панели (Форма) -->
-        <div class="p-6 md:p-10 flex-grow flex flex-col justify-center">
-            <p class="text-k-muted mb-8 leading-relaxed">
-                Оставьте заявку. Менеджер свяжется с вами, чтобы назначить время первой бесплатной тренировки с наставником клуба.
-            </p>
-            
-            <form id="kinetic-form" class="space-y-8" novalidate autocomplete="off">
-                <div class="relative">
-                    <label for="f-name" class="font-display text-xl text-k-muted uppercase tracking-widest block mb-2">Имя</label>
-                    <input type="text" id="f-name" required minlength="2" class="form-input" placeholder="Введите имя">
-                </div>
-                
-                <div class="relative">
-                    <label for="f-phone" class="font-display text-xl text-k-muted uppercase tracking-widest block mb-2">Телефон</label>
-                    <input type="tel" id="f-phone" required class="form-input" placeholder="+7 (___) ___-__-__">
-                </div>
-                
-                <div class="relative">
-                    <label for="f-goal" class="font-display text-xl text-k-muted uppercase tracking-widest block mb-2">Цель тренировок</label>
-                    <select id="f-goal" class="form-input bg-transparent appearance-none cursor-pointer pb-2">
-                        <option value="Рельеф и масса" class="bg-k-surface">Набор мышечной массы</option>
-                        <option value="Похудение" class="bg-k-surface">Жиросжигание</option>
-                        <option value="Кроссфит" class="bg-k-surface">Выносливость (CrossFit)</option>
-                        <option value="Единоборства" class="bg-k-surface">Единоборства</option>
-                    </select>
-                </div>
-
-                <!-- Фидбек формы -->
-                <div id="form-feedback" class="hidden text-center p-4 border border-k-accent text-k-accent font-display text-2xl tracking-widest uppercase"></div>
-
-                <button type="submit" id="submit-btn" class="btn-kinetic w-full flex justify-center items-center gap-3 disabled:opacity-50 mt-4">
-                    <span class="js-btn-text">Отправить заявку</span>
-                    <i class="ph-bold ph-spinner animate-spin hidden text-2xl js-btn-loader"></i>
-                </button>
+        <div class="p-10 flex-grow flex flex-col justify-center">
+            <div id="booking-badge" class="inline-block bg-white text-black font-display px-4 py-1.5 text-base tracking-widest mb-10">Услуга: Гостевой визит</div>
+            <form class="space-y-10" onsubmit="event.preventDefault(); alert('Ваш запрос принят. Менеджер свяжется с вами для уточнения деталей визита.');">
+                <div><label class="font-display text-xl text-k-muted uppercase tracking-widest block mb-2">Имя</label><input type="text" required class="form-input" placeholder="Как к вам обращаться?"></div>
+                <div><label class="font-display text-xl text-k-muted uppercase tracking-widest block mb-2">Телефон</label><input type="tel" required class="form-input" placeholder="+7 (___) ___-__-__"></div>
+                <button type="submit" class="btn-premium w-full mt-6">Отправить запрос</button>
             </form>
         </div>
     </aside>
 
-    <!-- Логика -->
+    <!-- 2. ДЕТАЛИ ДИСЦИПЛИНЫ (Slide-over) -->
+    <aside id="disc-modal" class="slide-modal flex flex-col">
+        <div class="relative h-80 overflow-hidden flex-shrink-0">
+            <img id="disc-img" src="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-k-bg to-transparent"></div>
+            <h2 id="disc-title" class="absolute bottom-10 left-10 font-display text-7xl text-white">Title</h2>
+            <button class="absolute top-8 right-8 text-white js-modal-close"><i class="ph ph-x text-4xl"></i></button>
+        </div>
+        <div class="p-10">
+            <div class="font-display text-2xl text-k-muted mb-6 uppercase tracking-widest">О направлении</div>
+            <p id="disc-desc" class="text-slate-300 text-xl leading-relaxed mb-12 font-light"></p>
+            <div class="font-display text-2xl text-k-muted mb-8 uppercase tracking-widest">Наставники</div>
+            <div id="disc-trainers" class="space-y-6 mb-12"></div>
+            <button id="disc-btn" class="btn-premium w-full js-book-trigger" data-service="">Назначить встречу</button>
+        </div>
+    </aside>
+
+    <!-- 3. КАРТОЧКА СПЕЦИАЛИСТА (Центральная модалка) -->
+    <div id="spec-modal" class="center-modal flex flex-col md:flex-row overflow-hidden border border-k-border shadow-2xl">
+        <div class="w-full md:w-2/5 h-80 md:h-auto relative">
+            <img id="spec-img" src="" class="absolute inset-0 w-full h-full object-cover grayscale">
+            <button class="md:hidden absolute top-6 right-6 text-white js-modal-close"><i class="ph ph-x text-4xl"></i></button>
+        </div>
+        <div class="w-full md:w-3/5 p-12 relative bg-k-surface">
+            <button class="hidden md:block absolute top-8 right-8 text-k-muted hover:text-white js-modal-close"><i class="ph ph-x text-4xl"></i></button>
+            <div id="spec-role" class="font-display text-base tracking-[0.2em] mb-4 uppercase">Role</div>
+            <h2 id="spec-name" class="font-display text-6xl mb-8">Name</h2>
+            <div class="space-y-6 text-slate-300 text-lg leading-relaxed mb-12 font-light">
+                <p id="spec-bio1"></p>
+                <p id="spec-bio2"></p>
+            </div>
+            <button id="spec-btn" class="btn-outline w-full js-book-trigger" data-service="">Выбрать наставника</button>
+        </div>
+    </div>
+
+    <!-- JS ДАННЫЕ И ЛОГИКА -->
     <script>
+        // Единая База Данных Команды
+        const teamData = {
+            'mark-romanov': { name: 'Марк Романов', role: 'Elite Trainer / CrossFit', color: 'text-k-orange', img: 'https://images.unsplash.com/photo-1583465555627-142f3607fc8d?auto=format&fit=crop&w=600&q=80', bio1: 'МСМК по пауэрлифтингу. 12 лет практики. Подготовил 5 чемпионов национальных первенств.', bio2: 'Специализация: Силовая выносливость, биомеханика тяжелых нагрузок и экстремальный тренинг.' },
+            'ali-khan': { name: 'Али Хан', role: 'Fight Coach / MMA', color: 'text-k-blue', img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80', bio1: 'Действующий про-боец MMA. Рекорд 14-2. Тренер по тайскому боксу и грэпплингу.', bio2: 'Специализация: Постановка ударной техники, борьба в партере, психологическая подготовка к бою.' },
+            'elena-costa': { name: 'Елена Коста', role: 'Master Trainer', color: 'text-white', img: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=600&q=80', bio1: 'CrossFit Level 2 Trainer. Эксперт по функциональному тренингу и коррекции фигуры.', bio2: 'Специализация: Высокоинтенсивный тренинг (HIIT), мобильность суставов, нутрициологическая поддержка.' },
+            'viktor-storm': { name: 'Виктор Шторм', role: 'Senior Trainer', color: 'text-white', img: 'https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=600&q=80', bio1: 'Абсолютный чемпион по бодибилдингу. Дипломированный нутрициолог.', bio2: 'Специализация: Гипертрофия мышц, исправление техники движений, составление планов питания.' },
+            'anna-weiss': { name: 'Д-р Анна Вейсс', role: 'Спортивный врач / к.м.н.', color: 'text-k-green', img: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80', bio1: '12 лет работы с олимпийскими сборными. Эксперт в области реабилитации и спортивной медицины.', bio2: 'Специализация: Кинезиотерапия, локальная криотерапия, восстановление после травм.' },
+            'mikhail-isaev': { name: 'Михаил Исаев', role: 'Мануальный терапевт', color: 'text-k-orange', img: 'https://images.unsplash.com/photo-1611506109961-9c60eec874b0?auto=format&fit=crop&w=600&q=80', bio1: 'Специалист по глубокотканному массажу и миофасциальному релизу (MFR).', bio2: 'Специализация: Устранение триггерных точек, восстановление эластичности фасций, работа с Theragun PRO.' },
+            'sofia-lee': { name: 'Д-р София Ли', role: 'Эндокринолог / Нутрициолог', color: 'text-k-blue', img: 'https://images.unsplash.com/photo-1594824436951-7f12bc31b4b1?auto=format&fit=crop&w=600&q=80', bio1: 'Врач-эндокринолог, эксперт по биохакингу и аппаратному анализу тела InBody.', bio2: 'Специализация: Коррекция метаболизма, гормональный фон, программы долголетия.' }
+        };
+
+        const disciplinesData = {
+            'crossfit': { title: 'CrossFit', desc: 'Экстремальная система физической подготовки. Мы не используем тренажеры, мы делаем тренажерами ваши тела. Развивает взрывную мощь, выносливость и железный характер.', trainers: ['mark-romanov', 'elena-costa'], img: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80' },
+            'mma': { title: 'Fight Club', desc: 'Зона единоборств премиум-класса. Профессиональный октагон и постановка жесткого удара под руководством чемпионов MMA и мастеров спорта по боксу.', trainers: ['ali-khan'], img: 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=800&q=80' },
+            'personal': { title: 'Personal', desc: 'Абсолютный фокус на вашем результате. Индивидуальная стратегия, биомеханический контроль каждого повторения и персональный план питания.', trainers: ['viktor-storm', 'elena-costa'], img: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80' }
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. SPA Роутинг (Переключение страниц без перезагрузки)
-            const views = document.querySelectorAll('.js-page-view');
-            const navLinks = document.querySelectorAll('.js-nav-link');
-
+            // 1. SPA Роутинг
             const navigateTo = (targetId) => {
-                // Прячем все, показываем нужный
-                views.forEach(v => v.classList.remove('is-active'));
-                const targetView = document.getElementById(targetId);
-                if (targetView) targetView.classList.add('is-active');
-
-                // Обновляем активный класс в меню
-                navLinks.forEach(link => {
-                    if(link.closest('nav')) { // Меняем стили только для ссылок в меню
+                document.querySelectorAll('.js-page-view').forEach(v => v.classList.toggle('is-active', v.id === targetId));
+                document.querySelectorAll('.js-nav-link').forEach(link => {
+                    if(link.closest('nav')) {
                         const isTarget = link.dataset.target === targetId;
                         link.classList.toggle('text-white', isTarget);
                         link.classList.toggle('text-k-muted', !isTarget);
                     }
                 });
-
-                // Скролл наверх
                 window.scrollTo(0, 0);
             };
 
-            // Слушатель для всех кнопок навигации
             document.body.addEventListener('click', e => {
                 const link = e.target.closest('.js-nav-link');
-                if (link && link.dataset.target) {
-                    e.preventDefault();
-                    navigateTo(link.dataset.target);
-                    // Закрываем боковую панель, если она открыта (например, мобильное меню)
-                    closePanel(); 
+                if (link && link.dataset.target) { e.preventDefault(); navigateTo(link.dataset.target); }
+            });
+
+            // 2. Инфраструктура: Табы
+            document.querySelectorAll('.infra-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.infra-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.infra-content').forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+
+            // 3. Рендер Команды
+            const teamGrid = document.getElementById('team-grid');
+            if (teamGrid) {
+                Object.entries(teamData).forEach(([id, t]) => {
+                    teamGrid.innerHTML += `
+                        <div class="group relative aspect-[3/4] overflow-hidden border border-k-border bg-k-surface cursor-pointer js-spec-trigger" data-id="${id}">
+                            <img src="${t.img}" class="w-full h-full object-cover cinematic-img">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="absolute bottom-0 left-0 p-8 transform translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
+                                <div class="${t.color} font-display tracking-widest uppercase mb-2 text-base">${t.role.split(' / ')[0]}</div>
+                                <h3 class="font-display text-4xl text-white leading-none">${t.name}</h3>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // 4. Модальные окна
+            const overlay = document.querySelector('.modal-overlay');
+            const closeAll = () => { overlay.classList.remove('is-open'); document.querySelectorAll('.slide-modal, .center-modal').forEach(m => m.classList.remove('is-open')); document.body.style.overflow = ''; };
+            document.querySelectorAll('.js-modal-close').forEach(btn => btn.addEventListener('click', closeAll));
+            overlay.addEventListener('click', closeAll);
+
+            // Клик по специалисту
+            document.body.addEventListener('click', e => {
+                const tr = e.target.closest('.js-spec-trigger');
+                if (tr) {
+                    const t = teamData[tr.dataset.id];
+                    document.getElementById('spec-img').src = t.img;
+                    document.getElementById('spec-name').textContent = t.name;
+                    document.getElementById('spec-role').textContent = t.role;
+                    document.getElementById('spec-role').className = `font-display text-lg tracking-[0.2em] mb-4 uppercase ${t.color}`;
+                    document.getElementById('spec-bio1').textContent = t.bio1;
+                    document.getElementById('spec-bio2').textContent = t.bio2;
+                    document.getElementById('spec-btn').dataset.service = `Сессия: ${t.name}`;
+                    document.getElementById('disc-modal').classList.remove('is-open');
+                    document.getElementById('spec-modal').classList.add('is-open');
+                    overlay.classList.add('is-open');
+                    document.body.style.overflow = 'hidden';
                 }
             });
 
-            // 2. Offcanvas Боковая панель (Форма / Мобильное меню)
-            const sidePanel = document.querySelector('.side-panel');
-            const panelOverlay = document.querySelector('.panel-overlay');
-
-            const openPanel = () => {
-                sidePanel.classList.add('is-open');
-                panelOverlay.classList.add('is-open');
-                document.body.style.overflow = 'hidden'; // Блокируем скролл сайта
-                
-                // Ставим фокус на первый инпут для доступности
-                setTimeout(() => document.getElementById('f-name').focus(), 300);
-            };
-
-            const closePanel = () => {
-                sidePanel.classList.remove('is-open');
-                panelOverlay.classList.remove('is-open');
-                document.body.style.overflow = '';
-            };
-
-            document.querySelectorAll('.js-panel-trigger').forEach(btn => btn.addEventListener('click', openPanel));
-            document.querySelectorAll('.js-panel-close').forEach(btn => btn.addEventListener('click', closePanel));
-            
-            // Закрытие по клавише Esc
-            document.addEventListener('keydown', e => {
-                if (e.key === 'Escape' && sidePanel.classList.contains('is-open')) closePanel();
+            // Клик по направлению (Дисциплине)
+            document.body.addEventListener('click', e => {
+                const tr = e.target.closest('.js-discipline-trigger');
+                if (tr) {
+                    const d = disciplinesData[tr.dataset.discipline];
+                    document.getElementById('disc-img').src = d.img;
+                    document.getElementById('disc-title').textContent = d.title;
+                    document.getElementById('disc-desc').textContent = d.desc;
+                    document.getElementById('disc-btn').dataset.service = `Направление: ${d.title}`;
+                    document.getElementById('disc-trainers').innerHTML = d.trainers.map(id => `
+                        <div class="flex items-center gap-6 cursor-pointer group p-4 border border-k-border hover:border-white transition-all js-spec-trigger" data-id="${id}">
+                            <img src="${teamData[id].img}" class="w-16 h-16 rounded-full object-cover grayscale">
+                            <div><div class="font-display text-2xl text-white leading-none">${teamData[id].name}</div><div class="text-sm text-k-muted mt-1 uppercase tracking-widest">${teamData[id].role.split(' / ')[0]}</div></div>
+                        </div>`).join('');
+                    document.getElementById('disc-modal').classList.add('is-open');
+                    overlay.classList.add('is-open');
+                }
             });
 
-
-            // 3. Форма (Имитация отправки + Можно прикрутить твоего TG бота)
-            const form = document.getElementById('kinetic-form');
-            const btn = document.getElementById('submit-btn');
-            const btnText = btn.querySelector('.js-btn-text');
-            const loader = btn.querySelector('.js-btn-loader');
-            const feedback = document.getElementById('form-feedback');
-
-            // Раскомментируй и вставь ключи, чтобы бот заработал:
-            // const BOT_TOKEN = 'ТВОЙ_ТОКЕН';
-            // const CHAT_ID = 'ТВОЙ_ID';
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                // Простая HTML5 Валидация
-                if (!form.checkValidity()) {
-                    form.querySelectorAll('input:invalid').forEach(el => el.classList.add('border-k-accent'));
-                    return form.reportValidity();
+            // Клик по кнопкам записи (Бронирование)
+            document.body.addEventListener('click', e => {
+                const tr = e.target.closest('.js-book-trigger');
+                if (tr) {
+                    const s = tr.dataset.service || 'Гостевой визит';
+                    document.getElementById('booking-badge').textContent = `Запрос: ${s}`;
+                    document.getElementById('form-modal').classList.add('is-open');
+                    overlay.classList.add('is-open');
                 }
-
-                // Визуальная загрузка
-                btn.disabled = true;
-                btnText.textContent = 'ОБРАБОТКА...';
-                loader.classList.remove('hidden');
-                feedback.classList.add('hidden');
-
-                // Если нужно отправлять в ТГ, раскомментируй блок ниже и удали setTimeout
-                /*
-                const name = document.getElementById('f-name').value;
-                const phone = document.getElementById('f-phone').value;
-                const goal = document.getElementById('f-goal').value;
-                const msg = `🔥 ЗАЯВКА В КЛУБ (KINETIC)\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n🎯 Цель: ${goal}`;
-                
-                try {
-                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                        method: 'POST', headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: CHAT_ID, text: msg })
-                    });
-                    // Успех
-                } catch (err) {
-                    // Ошибка
-                }
-                */
-
-                // Имитация задержки сети (Пока бот не подключен)
-                setTimeout(() => {
-                    btn.disabled = false;
-                    btnText.textContent = 'ОТПРАВЛЕНО';
-                    loader.classList.add('hidden');
-                    
-                    feedback.textContent = 'ЖДИ ЗВОНКА.';
-                    feedback.classList.remove('hidden');
-                    
-                    form.reset();
-                    form.querySelectorAll('input').forEach(el => el.classList.remove('border-k-accent'));
-
-                    // Возвращаем в исходное состояние
-                    setTimeout(() => {
-                        closePanel();
-                        feedback.classList.add('hidden');
-                        btnText.textContent = 'ОТПРАВИТЬ ЗАЯВКУ';
-                    }, 2000);
-
-                }, 1500);
-            });
-
-            // Убираем красную рамку при вводе текста
-            form.querySelectorAll('input').forEach(input => {
-                input.addEventListener('input', () => input.classList.remove('border-k-accent'));
             });
         });
     </script>
