@@ -1,74 +1,32 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KINETIC — Приватный фитнес-клуб</title>
-  <meta name="description" content="KINETIC — закрытый фитнес-клуб высокой производительности. Персональные программы, криотерапия, бассейн, сауна. Только для резидентов."/>
-  <meta name="robots" content="index, follow"/>
-
-  <!-- Schema.org -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SportsActivityLocation",
-    "name": "KINETIC",
-    "description": "Приватный фитнес-клуб с персональными программами, биомеханикой и восстановлением.",
-    "address": { "@type": "PostalAddress", "addressCountry": "RU" },
-    "telephone": "+7XXX",
-    "url": "https://kinetic.fit"
-  }
-  </script>
-
+  <meta name="description" content="KINETIC — закрытый клуб высокой производительности. Персональные программы, восстановление, биометрика. Только для резидентов."/>
   <style>
     :root {
       --bg: #070709;
       --text: #e0e0e0;
-      --accent-orange: #FF6B35;
-      --accent-blue: #0A2463;
-      --accent-teal: #00F5D4;
-      --shadow: rgba(0, 0, 0, 0.8);
+      --accent: #FF6B35;
+      --teal: #00F5D4;
+      --blue: #0A2463;
       --radius: 12px;
       --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Oswald', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
-      position: relative;
     }
-
-    @font-face {
-      font-family: 'Oswald';
-      src: url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap');
-    }
-
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    /* ONBOARDING */
     .onboarding {
       position: fixed;
       inset: 0;
@@ -81,34 +39,24 @@
       text-align: center;
       padding: 2rem;
     }
-
     .onboarding h1 {
-      font-size: clamp(1.5rem, 5vw, 3rem);
+      font-size: 2rem;
       margin-bottom: 2rem;
-      color: var(--text);
-      text-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
     }
-
     .onboarding button {
       background: transparent;
-      border: 1px solid var(--accent-orange);
-      color: var(--accent-orange);
+      border: 1px solid var(--accent);
+      color: var(--accent);
       padding: 1rem 2rem;
       margin: 0.5rem;
       border-radius: var(--radius);
-      font-family: 'Oswald', sans-serif;
       cursor: pointer;
       transition: var(--transition);
-      min-width: 180px;
     }
-
     .onboarding button:hover {
-      background: var(--accent-orange);
+      background: var(--accent);
       color: white;
-      transform: translateY(-2px);
     }
-
-    /* HEADER */
     header {
       position: fixed;
       top: 0;
@@ -116,123 +64,58 @@
       padding: 1.5rem 2rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       z-index: 100;
       background: rgba(7, 7, 9, 0.8);
       backdrop-filter: blur(10px);
     }
-
     .logo {
-      font-size: 1.8rem;
       font-weight: 700;
       color: white;
-      text-shadow: 0 0 8px var(--accent-orange);
+      text-shadow: 0 0 8px var(--accent);
     }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
-
     nav a {
       color: var(--text);
       text-decoration: none;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      position: relative;
+      margin-left: 2rem;
     }
-
-    nav a:after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--accent-orange);
-      transition: var(--transition);
-    }
-
-    nav a:hover:after {
-      width: 100%;
-    }
-
-    /* HERO */
-    .hero {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2rem, 8vw, 5rem);
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, var(--accent-orange), var(--accent-teal));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 15px rgba(255, 107, 53, 0.2);
-    }
-
-    /* SECTIONS */
     section {
       padding: 6rem 2rem;
-      max-width: 1400px;
+      max-width: 1200px;
       margin: 0 auto;
     }
-
     .section-title {
-      font-size: 2.2rem;
-      margin-bottom: 3rem;
+      font-size: 2rem;
       text-align: center;
-      color: var(--accent-orange);
+      color: var(--accent);
+      margin-bottom: 3rem;
     }
-
-    /* TEAM GRID */
     .team-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 2rem;
     }
-
     .team-card {
       background: rgba(255, 255, 255, 0.05);
       border-radius: var(--radius);
       overflow: hidden;
       cursor: pointer;
-      transition: var(--transition);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
-
-    .team-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    }
-
     .team-card img {
       width: 100%;
-      height: 220px;
+      height: 200px;
       object-fit: cover;
     }
-
     .team-info {
       padding: 1.5rem;
     }
-
     .team-info h3 {
       color: white;
-      margin-bottom: 0.5rem;
     }
-
     .team-info p {
-      font-size: 0.9rem;
       color: #aaa;
+      font-size: 0.9rem;
     }
-
-    /* MODAL */
     .modal {
       position: fixed;
       inset: 0;
@@ -243,22 +126,18 @@
       z-index: 300;
       padding: 2rem;
     }
-
     .modal.active {
       display: flex;
     }
-
     .modal-content {
       background: var(--bg);
       border: 1px solid rgba(255, 107, 53, 0.2);
       border-radius: var(--radius);
       max-width: 600px;
+      width: 100%;
       max-height: 90vh;
       overflow-y: auto;
-      width: 100%;
-      position: relative;
     }
-
     .modal-close {
       position: absolute;
       top: 1rem;
@@ -269,22 +148,12 @@
       font-size: 1.5rem;
       cursor: pointer;
     }
-
     .modal-body {
       padding: 2rem;
     }
-
-    /* FORM */
-    .form-group {
-      margin-bottom: 1rem;
+    form {
+      margin-top: 2rem;
     }
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-    }
-
     input, textarea {
       width: 100%;
       padding: 0.8rem;
@@ -292,99 +161,63 @@
       border: 1px solid rgba(255, 107, 53, 0.3);
       border-radius: var(--radius);
       color: white;
-      font-family: inherit;
+      margin-bottom: 1rem;
     }
-
     button.cta {
-      background: var(--accent-orange);
+      background: var(--accent);
       color: white;
       border: none;
       padding: 1rem 2rem;
       border-radius: var(--radius);
-      font-family: 'Oswald', sans-serif;
       cursor: pointer;
-      margin-top: 1rem;
-      transition: var(--transition);
     }
-
-    button.cta:hover {
-      background: #e05a2a;
-      transform: translateY(-2px);
-    }
-
     .form-feedback {
       margin-top: 1rem;
       padding: 1rem;
       border-radius: var(--radius);
       display: none;
     }
-
-    .form-feedback.success {
+    .success {
       background: rgba(0, 245, 212, 0.2);
-      color: var(--accent-teal);
+      color: var(--teal);
       display: block;
     }
-
-    .form-feedback.error {
+    .error {
       background: rgba(255, 0, 0, 0.2);
-      color: #ff4444;
+      color: #f44;
       display: block;
     }
-
-    /* ADMIN */
     .admin-panel {
       display: none;
       position: fixed;
       inset: 0;
       background: var(--bg);
       z-index: 500;
-      color: white;
       padding: 3rem;
+      color: white;
       overflow-y: auto;
     }
-
-    .admin-panel.active {
-      display: block;
-    }
-
-    .admin-panel h2 {
-      color: var(--accent-orange);
-      margin-bottom: 2rem;
-    }
-
     .admin-exit {
       background: #333;
       color: white;
       border: none;
       padding: 0.5rem 1rem;
       border-radius: 4px;
-      margin-bottom: 2rem;
       cursor: pointer;
     }
-
-    /* VOICE BUTTON */
     .voice-btn {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
       width: 60px;
       height: 60px;
-      background: var(--accent-orange);
+      background: var(--accent);
       border: none;
       border-radius: 50%;
       color: white;
       font-size: 1.2rem;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
       z-index: 100;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
     }
   </style>
 </head>
@@ -392,7 +225,7 @@
 
   <!-- ONBOARDING -->
   <div class="onboarding" id="onboarding">
-    <h1>Что ты ищешь?</h1>
+    <h1>Что вы ищете?</h1>
     <button onclick="startPath('strength')">Сила</button>
     <button onclick="startPath('endurance')">Выносливость</button>
     <button onclick="startPath('balance')">Баланс</button>
@@ -402,21 +235,14 @@
   <header>
     <div class="logo">KINETIC</div>
     <nav>
-      <ul>
-        <li><a href="#disciplines">Дисциплины</a></li>
-        <li><a href="#infrastructure">Инфраструктура</a></li>
-        <li><a href="#team">Команда</a></li>
-        <li><a href="#contact">Связь</a></li>
-      </ul>
+      <a href="#disciplines">Дисциплины</a>
+      <a href="#infrastructure">Инфраструктура</a>
+      <a href="#team">Команда</a>
+      <a href="#contact">Связь</a>
     </nav>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Трансформация. Результат.</h1>
-  </section>
-
-  <!-- DISCIPLINES -->
+  <!-- MAIN -->
   <section id="disciplines">
     <h2 class="section-title">Дисциплины</h2>
     <div class="team-grid">
@@ -424,82 +250,128 @@
         <img src="https://via.placeholder.com/300/FF6B35/FFFFFF?text=CrossFit" alt="Кроссфит">
         <div class="team-info">
           <h3>Кроссфит</h3>
-          <p>Функциональный тренинг, сила, выносливость</p>
-        </div>
-      </div>
-      <div class="team-card" onclick="openModal('mma')">
-        <img src="https://via.placeholder.com/300/0A2463/FFFFFF?text=MMA" alt="MMA">
-        <div class="team-info">
-          <h3>MMA</h3>
-          <p>Единоборства, спарринги, тактика</p>
-        </div>
-      </div>
-      <div class="team-card" onclick="openModal('yoga')">
-        <img src="https://via.placeholder.com/300/00F5D4/000000?text=Yoga" alt="Йога">
-        <div class="team-info">
-          <h3>Йога</h3>
-          <p>Гибкость, контроль, восстановление</p>
-        </div>
-      </div>
-      <div class="team-card" onclick="openModal('pilates')">
-        <img src="https://via.placeholder.com/300/FF6B35/000000?text=Pilates" alt="Пилатес">
-        <div class="team-info">
-          <h3>Пилатес</h3>
-          <p>Оснастка, осанка, стабильность</p>
+          <p>Сила, выносливость, функциональность</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- INFRASTRUCTURE -->
-  <section id="infrastructure">
-    <h2 class="section-title">Инфраструктура</h2>
-    <div class="team-grid">
-      <div class="team-card" onclick="openModal('cryo')">
-        <img src="https://via.placeholder.com/300/0A2463/FFFFFF?text=Cryo" alt="Криотерапия">
-        <div class="team-info">
-          <h3>Криотерапия</h3>
-          <p>–110°C, восстановление, иммунитет</p>
-        </div>
-      </div>
-      <div class="team-card" onclick="openModal('sauna')">
-        <img src="https://via.placeholder.com/300/FF6B35/000000?text=Sauna" alt="Сауна">
-        <div class="team-info">
-          <h3>Сауна</h3>
-          <p>Финская, 90°C, венчик, крио-последовательность</p>
-        </div>
-      </div>
-      <div class="team-card" onclick="openModal('pool')">
-        <img src="https://via.placeholder.com/300/00F5D4/000000?text=Pool" alt="Бассейн">
-        <div class="team-info">
-          <h3>Бассейн</h3>
-          <p>25 м, противоток, гидромассаж</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TEAM -->
   <section id="team">
     <h2 class="section-title">Команда</h2>
     <div class="team-grid" id="team-list"></div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2 class="section-title">Свяжитесь с нами</h2>
-    <form id="contact-form">
-      <div class="form-group">
-        <label for="name">Имя</label>
-        <input type="text" id="name" required />
-      </div>
-      <div class="form-group">
-        <label for="phone">Телефон</label>
-        <input type="tel" id="phone" required />
-      </div>
-      <div class="form-group">
-        <label for="service">Услуга</label>
-        <input type="text" id="service" readonly />
-      </div>
-      <button type="submit" class="cta">Назначить сессию</button>
-      <div class="form-feedback success">
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div class="admin-panel" id="admin-panel">
+    <button class="admin-exit" onclick="exitAdmin()">← Назад</button>
+    <h2>Админ-панель</h2>
+    <p>Управление командой, заявками, настройками.</p>
+  </div>
+
+  <!-- VOICE BUTTON -->
+  <button class="voice-btn" onclick="toggleVoice()">🎤</button>
+
+  <script>
+    // Данные команды
+    const teamData = [
+      {
+        name: "Игорь Мельников",
+        role: "Тренер по кроссфиту",
+        bio: "Мастер спорта по пауэрлифтингу, 10 лет опыта, тренировал чемпионов Европы.",
+        image: "https://via.placeholder.com/300/FF6B35/FFFFFF?text=Игорь"
+      }
+    ];
+
+    // Онбординг
+    function startPath(type) {
+      document.getElementById('onboarding').style.display = 'none';
+    }
+
+    // Модалка
+    function openModal(type) {
+      const modal = document.getElementById('modal');
+      const body = document.getElementById('modal-body');
+      const expert = teamData[0];
+
+      body.innerHTML = `
+        <h2>${expert.name}</h2>
+        <p><strong>${expert.role}</strong></p>
+        <p>${expert.bio}</p>
+        <form onsubmit="submitForm(event, '${expert.name}')">
+          <input type="hidden" name="service" value="${expert.role}" />
+          <input type="text" name="name" placeholder="Ваше имя" required />
+          <input type="tel" name="phone" placeholder="Телефон" required />
+          <button type="submit" class="cta">Назначить сессию</button>
+        </form>
+        <div class="form-feedback" id="feedback"></div>
+      `;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+
+    // Форма
+    function submitForm(e, name) {
+      e.preventDefault();
+      const form = e.target;
+      const feedback = document.getElementById('feedback');
+      feedback.className = 'form-feedback success';
+      feedback.textContent = `Спасибо! Сессия с ${name} запланирована. Мы свяжемся с вами.`;
+      form.style.display = 'none';
+    }
+
+    // Админка
+    if (window.location.hash === '#admin') {
+      document.getElementById('admin-panel').style.display = 'block';
+    }
+
+    function exitAdmin() {
+      window.location.hash = '';
+      document.getElementById('admin-panel').style.display = 'none';
+    }
+
+    // Голос
+    function toggleVoice() {
+      if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'ru-RU';
+        recognition.onresult = (e) => {
+          const text = e.results[0][0].transcript.toLowerCase();
+          if (text.includes('тренер')) openModal('crossfit');
+          if (text.includes('сессия')) openModal('crossfit');
+        };
+        recognition.start();
+      } else {
+        alert('Голосовой ввод не поддерживается');
+      }
+    }
+
+    // Загрузка команды
+    window.onload = () => {
+      const list = document.getElementById('team-list');
+      teamData.forEach(member => {
+        list.innerHTML += `
+          <div class="team-card" onclick="openModal('coach')">
+            <img src="${member.image}" alt="${member.name}" loading="lazy">
+            <div class="team-info">
+              <h3>${member.name}</h3>
+              <p>${member.role}</p>
+            </div>
+          </div>
+        `;
+      });
+    };
+  </script>
+
+</body>
