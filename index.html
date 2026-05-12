@@ -1,558 +1,505 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KINETIC | High-Performance Space</title>
-    <meta name="description" content="Приватный фитнес-клуб закрытого типа. Инжиниринг вашего тела.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KINETIC — Приватный фитнес-клуб</title>
+  <meta name="description" content="KINETIC — закрытый фитнес-клуб высокой производительности. Персональные программы, криотерапия, бассейн, сауна. Только для резидентов."/>
+  <meta name="robots" content="index, follow"/>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsActivityLocation",
+    "name": "KINETIC",
+    "description": "Приватный фитнес-клуб с персональными программами, биомеханикой и восстановлением.",
+    "address": { "@type": "PostalAddress", "addressCountry": "RU" },
+    "telephone": "+7XXX",
+    "url": "https://kinetic.fit"
+  }
+  </script>
 
-    <style>
-        :root {
-            --c-black: #050506;
-            --c-surface: #0c0c0e;
-            --c-border: #1a1a1c;
-            --c-text-main: #f8fafc;
-            --c-text-muted: #64748b;
-            
-            /* Saturated Accents */
-            --c-orange: #d9480f; /* CrossFit */
-            --c-blue: #1e3a8a;   /* Combat */
-            --c-green: #064e3b;  /* Medical */
-            
-            --f-sans: 'Inter', sans-serif;
-            --f-head: 'Oswald', sans-serif;
-            --transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+  <style>
+    :root {
+      --bg: #070709;
+      --text: #e0e0e0;
+      --accent-orange: #FF6B35;
+      --accent-blue: #0A2463;
+      --accent-teal: #00F5D4;
+      --shadow: rgba(0, 0, 0, 0.8);
+      --radius: 12px;
+      --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-        /* RESET */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { 
-            font-family: var(--f-sans); 
-            background-color: var(--c-black); 
-            color: var(--c-text-main); 
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* CINEMATIC EFFECTS */
-        .vignette {
-            position: fixed; inset: 0; pointer-events: none; z-index: 50;
-            background: radial-gradient(circle at center, transparent 20%, rgba(5, 5, 6, 0.8) 100%);
-        }
-        .grain {
-            position: fixed; inset: 0; pointer-events: none; z-index: 51;
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.03;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        /* LAYOUT */
-        .container { max-width: 1600px; margin: 0 auto; padding: 0 2rem; }
-        
-        /* HEADER */
-        .header {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
-            height: 100px; display: flex; align-items: center;
-            background: rgba(5, 5, 6, 0.7); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--c-border);
-        }
-        .header-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-        .logo-box { 
-            width: 45px; height: 45px; border: 2px solid #fff; 
-            display: flex; align-items: center; justify-content: center;
-            transition: var(--transition);
-        }
-        .logo:hover .logo-box { background: #fff; color: #000; }
-        .logo-text { font-family: var(--f-head); font-size: 2rem; font-weight: 700; letter-spacing: 0.1em; color: #fff; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Oswald', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        .nav { display: flex; gap: 3rem; }
-        .nav-btn { 
-            font-family: var(--f-head); font-size: 1.25rem; text-transform: uppercase; 
-            letter-spacing: 0.1em; color: var(--c-text-muted); cursor: pointer; transition: var(--transition);
-        }
-        .nav-btn:hover, .nav-btn.active { color: #fff; }
+    @font-face {
+      font-family: 'Oswald';
+      src: url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap');
+    }
 
-        /* SPA VIEWS */
-        .view { display: none; opacity: 0; padding-top: 100px; min-height: 100vh; }
-        .view.is-active { display: block; animation: viewFadeIn 0.8s forwards; }
-        @keyframes viewFadeIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
 
-        /* HERO SECTION */
-        .hero { position: relative; height: calc(100vh - 100px); display: flex; align-items: center; overflow: hidden; }
-        .hero-bg { position: absolute; inset: 0; z-index: -1; }
-        .hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.3) grayscale(1); }
-        .hero-content { max-width: 900px; }
-        .hero-tag { font-family: var(--f-head); font-size: 1.5rem; color: var(--c-orange); margin-bottom: 2rem; display: block; letter-spacing: 0.3em; }
-        .hero-title { font-family: var(--f-head); font-size: clamp(4rem, 10vw, 9rem); line-height: 0.85; margin-bottom: 3rem; font-weight: 700; text-transform: uppercase; }
-        .hero-title span { color: transparent; -webkit-text-stroke: 1px #fff; }
+    /* ONBOARDING */
+    .onboarding {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      text-align: center;
+      padding: 2rem;
+    }
 
-        /* BUTTONS */
-        .btn {
-            display: inline-flex; align-items: center; gap: 1rem;
-            padding: 1.25rem 3.5rem; font-family: var(--f-head); font-size: 1.5rem;
-            text-transform: uppercase; letter-spacing: 0.1em; transition: var(--transition);
-            cursor: pointer; border: none;
-        }
-        .btn-fill { background: #fff; color: #000; font-weight: 700; }
-        .btn-fill:hover { background: var(--c-orange); color: #fff; transform: translateY(-5px); }
+    .onboarding h1 {
+      font-size: clamp(1.5rem, 5vw, 3rem);
+      margin-bottom: 2rem;
+      color: var(--text);
+      text-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+    }
 
-        /* INFRASTRUCTURE (DASHBOARD) */
-        .infra-grid { display: grid; grid-template-columns: 350px 1fr; gap: 4rem; margin-top: 4rem; }
-        .infra-tabs { display: flex; flex-direction: column; gap: 0.5rem; }
-        .tab-trigger {
-            text-align: left; padding: 2rem; background: var(--c-surface);
-            border-left: 4px solid transparent; transition: var(--transition);
-            font-family: var(--f-head); font-size: 1.5rem; color: var(--c-text-muted); text-transform: uppercase;
-        }
-        .tab-trigger.active { border-left-color: var(--c-orange); color: #fff; background: rgba(255,255,255,0.02); }
-        
-        .tab-pane { display: none; }
-        .tab-pane.active { display: block; animation: paneIn 0.5s ease; }
-        @keyframes paneIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+    .onboarding button {
+      background: transparent;
+      border: 1px solid var(--accent-orange);
+      color: var(--accent-orange);
+      padding: 1rem 2rem;
+      margin: 0.5rem;
+      border-radius: var(--radius);
+      font-family: 'Oswald', sans-serif;
+      cursor: pointer;
+      transition: var(--transition);
+      min-width: 180px;
+    }
 
-        /* DISCIPLINE CARDS */
-        .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
-        .card {
-            position: relative; height: 600px; background: var(--c-surface); overflow: hidden;
-            display: flex; flex-direction: column; justify-content: flex-end; padding: 3rem;
-            border: 1px solid var(--c-border); transition: var(--transition); cursor: pointer;
-        }
-        .card:hover { border-color: #fff; }
-        .card-bg { position: absolute; inset: 0; z-index: 0; }
-        .card-bg img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.4); transition: var(--transition); }
-        .card:hover .card-bg img { filter: grayscale(0.5) brightness(0.6); transform: scale(1.05); }
-        .card-content { position: relative; z-index: 1; }
-        .card-num { font-family: var(--f-head); font-size: 3rem; color: var(--c-text-muted); margin-bottom: 1rem; }
-        .card-title { font-family: var(--f-head); font-size: 4rem; line-height: 1; margin-bottom: 1.5rem; }
+    .onboarding button:hover {
+      background: var(--accent-orange);
+      color: white;
+      transform: translateY(-2px);
+    }
 
-        /* ROSTER (TEAM) */
-        .roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 4rem; }
-        .member {
-            aspect-ratio: 3/4; background: var(--c-surface); position: relative; overflow: hidden;
-            border: 1px solid var(--c-border); cursor: pointer;
-        }
-        .member img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: var(--transition); }
-        .member:hover img { filter: grayscale(0.2); transform: scale(1.03); }
-        .member-info { 
-            position: absolute; bottom: 0; left: 0; width: 100%; padding: 2rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-        }
-        .member-role { font-family: var(--f-head); font-size: 0.875rem; letter-spacing: 0.2em; color: var(--c-orange); margin-bottom: 0.5rem; }
-        .member-name { font-family: var(--f-head); font-size: 2rem; }
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: rgba(7, 7, 9, 0.8);
+      backdrop-filter: blur(10px);
+    }
 
-        /* MODALS */
-        .modal {
-            position: fixed; inset: 0; z-index: 1000; display: none;
-            align-items: center; justify-content: center; padding: 2rem;
-        }
-        .modal.is-open { display: flex; }
-        .modal-backdrop { position: absolute; inset: 0; background: rgba(2, 2, 3, 0.95); backdrop-filter: blur(10px); }
-        .modal-content {
-            position: relative; z-index: 1001; background: var(--c-surface);
-            width: 100%; max-width: 1000px; border: 1px solid var(--c-border);
-            display: grid; grid-template-columns: 45% 1fr; overflow: hidden;
-            animation: modalIn 0.5s var(--transition);
-        }
-        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        
-        .modal-close {
-            position: absolute; top: 2rem; right: 2rem; z-index: 10;
-            color: #fff; font-size: 2rem; cursor: pointer;
-        }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 0 8px var(--accent-orange);
+    }
 
-        /* FORM */
-        .form-terminal { padding: 4rem; }
-        .form-title { font-family: var(--f-head); font-size: 3rem; margin-bottom: 2rem; }
-        .input-group { margin-bottom: 2rem; }
-        .input-label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--c-text-muted); margin-bottom: 0.5rem; }
-        .input-field {
-            width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--c-border);
-            padding: 1rem 0; color: #fff; font-size: 1.25rem; outline: none; transition: var(--transition);
-        }
-        .input-field:focus { border-bottom-color: var(--c-orange); }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
 
-        /* FOOTER */
-        .footer { padding: 6rem 0; border-top: 1px solid var(--c-border); text-align: center; }
-        .footer-logo { font-family: var(--f-head); font-size: 3rem; letter-spacing: 0.5em; opacity: 0.1; }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      position: relative;
+    }
 
-        @media (max-width: 1024px) {
-            .infra-grid, .modal-content { grid-template-columns: 1fr; }
-            .cards-grid { grid-template-columns: 1fr; }
-            .modal-content { height: 90vh; overflow-y: auto; }
-            .modal-image { height: 300px; }
-            .header-inner .nav { display: none; }
-        }
-    </style>
+    nav a:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-orange);
+      transition: var(--transition);
+    }
+
+    nav a:hover:after {
+      width: 100%;
+    }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 8vw, 5rem);
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, var(--accent-orange), var(--accent-teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(255, 107, 53, 0.2);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      color: var(--accent-orange);
+    }
+
+    /* TEAM GRID */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .team-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .team-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .team-info {
+      padding: 1.5rem;
+    }
+
+    .team-info h3 {
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .team-info p {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    /* MODAL */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+      padding: 2rem;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg);
+      border: 1px solid rgba(255, 107, 53, 0.2);
+      border-radius: var(--radius);
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      width: 100%;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    /* FORM */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      border-radius: var(--radius);
+      color: white;
+      font-family: inherit;
+    }
+
+    button.cta {
+      background: var(--accent-orange);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: var(--radius);
+      font-family: 'Oswald', sans-serif;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: var(--transition);
+    }
+
+    button.cta:hover {
+      background: #e05a2a;
+      transform: translateY(-2px);
+    }
+
+    .form-feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: var(--radius);
+      display: none;
+    }
+
+    .form-feedback.success {
+      background: rgba(0, 245, 212, 0.2);
+      color: var(--accent-teal);
+      display: block;
+    }
+
+    .form-feedback.error {
+      background: rgba(255, 0, 0, 0.2);
+      color: #ff4444;
+      display: block;
+    }
+
+    /* ADMIN */
+    .admin-panel {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 500;
+      color: white;
+      padding: 3rem;
+      overflow-y: auto;
+    }
+
+    .admin-panel.active {
+      display: block;
+    }
+
+    .admin-panel h2 {
+      color: var(--accent-orange);
+      margin-bottom: 2rem;
+    }
+
+    .admin-exit {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+      cursor: pointer;
+    }
+
+    /* VOICE BUTTON */
+    .voice-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      background: var(--accent-orange);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      z-index: 100;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="vignette"></div>
-    <div class="grain"></div>
+  <!-- ONBOARDING -->
+  <div class="onboarding" id="onboarding">
+    <h1>Что ты ищешь?</h1>
+    <button onclick="startPath('strength')">Сила</button>
+    <button onclick="startPath('endurance')">Выносливость</button>
+    <button onclick="startPath('balance')">Баланс</button>
+  </div>
 
-    <!-- HEADER -->
-    <header class="header">
-        <div class="container header-inner">
-            <a href="#" class="logo js-view-trigger" data-target="view-home">
-                <div class="logo-box">Ai</div>
-                <span class="logo-text">KINETIC</span>
-            </a>
-            <nav class="nav">
-                <div class="nav-btn js-view-trigger active" data-target="view-home">Главная</div>
-                <div class="nav-btn js-view-trigger" data-target="view-infra">Технологии</div>
-                <div class="nav-btn js-view-trigger" data-target="view-disciplines">Направления</div>
-                <div class="nav-btn js-view-trigger" data-target="view-roster">Ростер</div>
-            </nav>
-            <button class="btn-ghost js-modal-trigger" data-modal="modal-book" style="border: 1px solid #fff; padding: 0.75rem 1.5rem; color: #fff; font-family: var(--f-head); text-transform: uppercase;">
-                Назначить визит
-            </button>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">KINETIC</div>
+    <nav>
+      <ul>
+        <li><a href="#disciplines">Дисциплины</a></li>
+        <li><a href="#infrastructure">Инфраструктура</a></li>
+        <li><a href="#team">Команда</a></li>
+        <li><a href="#contact">Связь</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Трансформация. Результат.</h1>
+  </section>
+
+  <!-- DISCIPLINES -->
+  <section id="disciplines">
+    <h2 class="section-title">Дисциплины</h2>
+    <div class="team-grid">
+      <div class="team-card" onclick="openModal('crossfit')">
+        <img src="https://via.placeholder.com/300/FF6B35/FFFFFF?text=CrossFit" alt="Кроссфит">
+        <div class="team-info">
+          <h3>Кроссфит</h3>
+          <p>Функциональный тренинг, сила, выносливость</p>
         </div>
-    </header>
-
-    <main>
-        <!-- VIEW: HOME -->
-        <article id="view-home" class="view is-active">
-            <section class="hero">
-                <div class="hero-bg">
-                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920" alt="Gym Interior">
-                </div>
-                <div class="container">
-                    <div class="hero-content">
-                        <span class="hero-tag">High-Performance Only</span>
-                        <h1 class="hero-title">Трансформация. <br> <span>Результат.</span></h1>
-                        <button class="btn btn-fill js-modal-trigger" data-modal="modal-book">Начать цикл →</button>
-                    </div>
-                </div>
-            </section>
-        </article>
-
-        <!-- VIEW: INFRASTRUCTURE -->
-        <article id="view-infra" class="view">
-            <section class="section-padding">
-                <div class="container">
-                    <h2 class="hero-title" style="font-size: 6rem;">Техно- <br> <span>логин.</span></h2>
-                    <div class="infra-grid">
-                        <div class="infra-tabs">
-                            <button class="tab-trigger active" data-tab="crio">01 / Криотерапия</button>
-                            <button class="tab-trigger" data-tab="bio">02 / Биомеханика</button>
-                            <button class="tab-trigger" data-tab="massage">03 / Терапия</button>
-                        </div>
-                        <div class="infra-content">
-                            <!-- Crio -->
-                            <div id="crio" class="tab-pane active">
-                                <h3 class="hero-title" style="font-size: 4rem; color: var(--c-orange);">Deep Freeze</h3>
-                                <p style="font-size: 1.5rem; color: var(--c-text-muted); max-width: 700px; margin-bottom: 3rem;">
-                                    Arctic Science. Охлаждение до -110°C. Удаляет молочную кислоту и гасит воспаления за 180 секунд.
-                                </p>
-                                <div class="member js-spec-trigger" data-id="anna-weiss" style="width: 300px;">
-                                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=600" alt="Anna">
-                                    <div class="member-info">
-                                        <div class="member-role">Спортивный врач</div>
-                                        <div class="member-name">Д-р Анна Вейсс</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Bio -->
-                            <div id="bio" class="tab-pane">
-                                <h3 class="hero-title" style="font-size: 4rem; color: var(--c-blue);">InBody 770</h3>
-                                <p style="font-size: 1.5rem; color: var(--c-text-muted); max-width: 700px; margin-bottom: 3rem;">
-                                    Цифровой двойник твоего организма. Мы видим соотношение воды, жира и мышечных волокон с точностью 98%.
-                                </p>
-                                <div class="member js-spec-trigger" data-id="sofia-lee" style="width: 300px;">
-                                    <img src="https://images.unsplash.com/photo-1594824436951-7f12bc31b4b1?q=80&w=600" alt="Sofia">
-                                    <div class="member-info">
-                                        <div class="member-role">Нутрициолог</div>
-                                        <div class="member-name">Д-р София Ли</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </article>
-
-        <!-- VIEW: DISCIPLINES -->
-        <article id="view-disciplines" class="view">
-            <section class="section-padding">
-                <div class="container">
-                    <h2 class="hero-title" style="font-size: 6rem; text-align: center;">Путь <br> <span>атлета.</span></h2>
-                    <div class="cards-grid">
-                        <div class="card js-disc-trigger" data-id="crossfit">
-                            <div class="card-bg"><img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=800"></div>
-                            <div class="card-content">
-                                <div class="card-num">01</div>
-                                <h3 class="card-title">CrossFit</h3>
-                                <div class="member-role">Power & Speed</div>
-                            </div>
-                        </div>
-                        <div class="card js-disc-trigger" data-id="mma">
-                            <div class="card-bg"><img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=800"></div>
-                            <div class="card-content">
-                                <div class="card-num">02</div>
-                                <h3 class="card-title">Combat</h3>
-                                <div class="member-role">Focus & Strength</div>
-                            </div>
-                        </div>
-                        <div class="card js-disc-trigger" data-id="personal">
-                            <div class="card-bg"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800"></div>
-                            <div class="card-content">
-                                <div class="card-num">03</div>
-                                <h3 class="card-title">Personal</h3>
-                                <div class="member-role">Bio-Engineering</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </article>
-
-        <!-- VIEW: ROSTER -->
-        <article id="view-roster" class="view">
-            <section class="section-padding">
-                <div class="container">
-                    <h2 class="hero-title" style="font-size: 6rem;">Элитный <br> <span>Ростер.</span></h2>
-                    <div class="roster-grid" id="team-container">
-                        <!-- Rendered by JS -->
-                    </div>
-                </div>
-            </section>
-        </article>
-    </main>
-
-    <footer class="footer">
-        <div class="footer-logo">KINETIC LAB</div>
-        <p style="color: var(--c-text-muted); margin-top: 2rem;">Designed for Peak Performance © 2026</p>
-    </footer>
-
-    <!-- MODAL: BOOKING -->
-    <div id="modal-book" class="modal">
-        <div class="modal-backdrop js-modal-close"></div>
-        <div class="modal-content">
-            <div class="modal-image" style="background: #000;">
-                <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=800" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.5;">
-            </div>
-            <div class="form-terminal">
-                <div class="modal-close js-modal-close"><i class="ph ph-x"></i></div>
-                <h2 class="form-title">Протокол <br>записи</h2>
-                <p id="modal-service-tag" style="color: var(--c-orange); margin-bottom: 2rem; font-family: var(--f-head); text-transform: uppercase; letter-spacing: 0.1em;">Service: Персональный визит</p>
-                <form id="book-form">
-                    <div class="input-group">
-                        <label class="input-label">Имя атлета</label>
-                        <input type="text" class="input-field" required placeholder="Введите ваше имя">
-                    </div>
-                    <div class="input-group">
-                        <label class="input-label">Контактный номер</label>
-                        <input type="tel" class="input-field" required placeholder="+7 (___) ___-__-__">
-                    </div>
-                    <button type="submit" class="btn btn-fill" style="width: 100%;" id="form-submit-btn">
-                        <span>Запланировать →</span>
-                    </button>
-                </form>
-            </div>
+      </div>
+      <div class="team-card" onclick="openModal('mma')">
+        <img src="https://via.placeholder.com/300/0A2463/FFFFFF?text=MMA" alt="MMA">
+        <div class="team-info">
+          <h3>MMA</h3>
+          <p>Единоборства, спарринги, тактика</p>
         </div>
+      </div>
+      <div class="team-card" onclick="openModal('yoga')">
+        <img src="https://via.placeholder.com/300/00F5D4/000000?text=Yoga" alt="Йога">
+        <div class="team-info">
+          <h3>Йога</h3>
+          <p>Гибкость, контроль, восстановление</p>
+        </div>
+      </div>
+      <div class="team-card" onclick="openModal('pilates')">
+        <img src="https://via.placeholder.com/300/FF6B35/000000?text=Pilates" alt="Пилатес">
+        <div class="team-info">
+          <h3>Пилатес</h3>
+          <p>Оснастка, осанка, стабильность</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- MODAL: SPECIALIST -->
-    <div id="modal-spec" class="modal">
-        <div class="modal-backdrop js-modal-close"></div>
-        <div class="modal-content" style="max-width: 800px; grid-template-columns: 1fr;">
-            <div class="form-terminal" id="spec-detail-content">
-                <!-- Rendered by JS -->
-            </div>
+  <!-- INFRASTRUCTURE -->
+  <section id="infrastructure">
+    <h2 class="section-title">Инфраструктура</h2>
+    <div class="team-grid">
+      <div class="team-card" onclick="openModal('cryo')">
+        <img src="https://via.placeholder.com/300/0A2463/FFFFFF?text=Cryo" alt="Криотерапия">
+        <div class="team-info">
+          <h3>Криотерапия</h3>
+          <p>–110°C, восстановление, иммунитет</p>
         </div>
+      </div>
+      <div class="team-card" onclick="openModal('sauna')">
+        <img src="https://via.placeholder.com/300/FF6B35/000000?text=Sauna" alt="Сауна">
+        <div class="team-info">
+          <h3>Сауна</h3>
+          <p>Финская, 90°C, венчик, крио-последовательность</p>
+        </div>
+      </div>
+      <div class="team-card" onclick="openModal('pool')">
+        <img src="https://via.placeholder.com/300/00F5D4/000000?text=Pool" alt="Бассейн">
+        <div class="team-info">
+          <h3>Бассейн</h3>
+          <p>25 м, противоток, гидромассаж</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <script>
-        /**
-         * KINETIC DATA CORE
-         */
-        const CLUB_DATA = {
-            team: {
-                'mark-romanov': { name: 'Марк Романов', role: 'Head of CrossFit', img: 'https://images.unsplash.com/photo-1583465555627-142f3607fc8d?q=80&w=600', bio: 'Мастер спорта по пауэрлифтингу. 15 лет превращает людей в машины. Только хардкор.' },
-                'ali-khan': { name: 'Али Хан', role: 'Combat Master', img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600', bio: 'Действующий боец ММА (14-2). Постановка нокаутирующего удара и психология боя.' },
-                'anna-weiss': { name: 'Д-р Анна Вейсс', role: 'Sports Medicine', img: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=600', bio: 'Кандидат мед. наук. Реабилитация олимпийских сборных. Твой технадзор за телом.' },
-                'sofia-lee': { name: 'Д-р София Ли', role: 'Endocrinology', img: 'https://images.unsplash.com/photo-1594824436951-7f12bc31b4b1?q=80&w=600', bio: 'Эксперт по биохакингу. Настройка метаболизма и гормонального фона под нагрузки.' }
-            },
-            disciplines: {
-                'crossfit': { title: 'CrossFit', desc: 'Экстремальная система подготовки. Гимнастика, атлетика, кардио.' },
-                'mma': { title: 'Fight Club', desc: 'Зона смешанных единоборств премиум-класса. Октагон и ударная техника.' },
-                'personal': { title: 'Bio Personal', desc: 'Абсолютный фокус. Стратегия на основе генетики и биомеханики.' }
-            }
-        };
+  <!-- TEAM -->
+  <section id="team">
+    <h2 class="section-title">Команда</h2>
+    <div class="team-grid" id="team-list"></div>
+  </section>
 
-        /**
-         * KINETIC ENGINE (SPA & Interactions)
-         */
-        const KineticEngine = {
-            init() {
-                this.initNavigation();
-                this.initTabs();
-                this.initModals();
-                this.renderTeam();
-                this.initForms();
-            },
-
-            initNavigation() {
-                const triggers = document.querySelectorAll('.js-view-trigger');
-                const views = document.querySelectorAll('.view');
-
-                triggers.forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const target = btn.dataset.target;
-                        
-                        triggers.forEach(t => t.classList.remove('active'));
-                        btn.classList.add('active');
-
-                        views.forEach(v => v.classList.remove('is-active'));
-                        document.getElementById(target).classList.add('is-active');
-                        window.scrollTo(0,0);
-                    });
-                });
-            },
-
-            initTabs() {
-                const triggers = document.querySelectorAll('.tab-trigger');
-                const panes = document.querySelectorAll('.tab-pane');
-
-                triggers.forEach(t => {
-                    t.addEventListener('click', () => {
-                        triggers.forEach(btn => btn.classList.remove('active'));
-                        panes.forEach(p => p.classList.remove('active'));
-                        
-                        t.classList.add('active');
-                        document.getElementById(t.dataset.tab).classList.add('active');
-                    });
-                });
-            },
-
-            initModals() {
-                const triggers = document.querySelectorAll('.js-modal-trigger');
-                const closers = document.querySelectorAll('.js-modal-close');
-                const specTriggers = document.querySelectorAll('.js-spec-trigger');
-
-                triggers.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const mId = btn.dataset.modal;
-                        const service = btn.dataset.service || 'Персональный визит';
-                        document.getElementById('modal-service-tag').innerText = `Service: ${service}`;
-                        document.getElementById(mId).classList.add('is-open');
-                        document.body.style.overflow = 'hidden';
-                    });
-                });
-
-                document.body.addEventListener('click', (e) => {
-                    const specBtn = e.target.closest('.js-spec-trigger');
-                    if (specBtn) {
-                        const id = specBtn.dataset.id;
-                        this.openSpecModal(id);
-                    }
-                    
-                    const discBtn = e.target.closest('.js-disc-trigger');
-                    if (discBtn) {
-                        const id = discBtn.dataset.id;
-                        this.openDiscModal(id);
-                    }
-                });
-
-                closers.forEach(c => {
-                    c.addEventListener('click', () => {
-                        document.querySelectorAll('.modal').forEach(m => m.classList.remove('is-open'));
-                        document.body.style.overflow = 'auto';
-                    });
-                });
-            },
-
-            renderTeam() {
-                const container = document.getElementById('team-container');
-                if (!container) return;
-                
-                Object.entries(CLUB_DATA.team).forEach(([id, member]) => {
-                    const el = document.createElement('div');
-                    el.className = 'member js-spec-trigger';
-                    el.dataset.id = id;
-                    el.innerHTML = `
-                        <img src="${member.img}" alt="${member.name}">
-                        <div class="member-info">
-                            <div class="member-role">${member.role}</div>
-                            <div class="member-name">${member.name}</div>
-                        </div>
-                    `;
-                    container.appendChild(el);
-                });
-            },
-
-            openSpecModal(id) {
-                const member = CLUB_DATA.team[id];
-                const content = document.getElementById('spec-detail-content');
-                content.innerHTML = `
-                    <div class="modal-close js-modal-close"><i class="ph ph-x"></i></div>
-                    <div class="member-role" style="font-size: 1.5rem;">Expert Profile</div>
-                    <h2 class="form-title" style="margin-bottom: 1rem;">${member.name}</h2>
-                    <p style="color: var(--c-orange); font-family: var(--f-head); text-transform: uppercase; margin-bottom: 2rem;">${member.role}</p>
-                    <p style="font-size: 1.25rem; color: var(--c-text-muted); line-height: 1.8; margin-bottom: 3rem;">${member.bio}</p>
-                    <button class="btn btn-fill js-book-from-spec" data-name="${member.name}">Назначить сессию с экспертом →</button>
-                `;
-                
-                document.getElementById('modal-spec').classList.add('is-open');
-
-                // Перехват клика внутри новой разметки
-                content.querySelector('.js-book-from-spec').onclick = () => {
-                    document.getElementById('modal-spec').classList.remove('is-open');
-                    document.getElementById('modal-service-tag').innerText = `Service: Сессия с ${member.name}`;
-                    document.getElementById('modal-book').classList.add('is-open');
-                };
-            },
-
-            openDiscModal(id) {
-                const disc = CLUB_DATA.disciplines[id];
-                const content = document.getElementById('spec-detail-content');
-                content.innerHTML = `
-                    <div class="modal-close js-modal-close"><i class="ph ph-x"></i></div>
-                    <div class="member-role" style="font-size: 1.5rem;">Discipline Protocol</div>
-                    <h2 class="form-title" style="margin-bottom: 1rem;">${disc.title}</h2>
-                    <p style="font-size: 1.25rem; color: var(--c-text-muted); line-height: 1.8; margin-bottom: 3rem;">${disc.desc}</p>
-                    <button class="btn btn-fill js-book-from-spec">Запланировать вводный тренинг →</button>
-                `;
-                document.getElementById('modal-spec').classList.add('is-open');
-            },
-
-            initForms() {
-                const form = document.getElementById('book-form');
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    const btn = document.getElementById('form-submit-btn');
-                    btn.disabled = true;
-                    btn.innerHTML = `<span>Обработка...</span>`;
-
-                    // MOCK ASYNC
-                    await new Promise(r => setTimeout(r, 1500));
-                    
-                    btn.style.background = 'var(--c-green)';
-                    btn.innerHTML = `<span>Принято. Ожидайте связи.</span>`;
-                    
-                    setTimeout(() => {
-                        document.querySelectorAll('.modal').forEach(m => m.classList.remove('is-open'));
-                        document.body.style.overflow = 'auto';
-                        form.reset();
-                        btn.disabled = false;
-                        btn.style.background = '';
-                        btn.innerHTML = `<span>Запланировать →</span>`;
-                    }, 2000);
-                });
-            }
-        };
-
-        document.addEventListener('DOMContentLoaded', () => KineticEngine.init());
-    </script>
-</body>
-</html>
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="section-title">Свяжитесь с нами</h2>
+    <form id="contact-form">
+      <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="text" id="name" required />
+      </div>
+      <div class="form-group">
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" required />
+      </div>
+      <div class="form-group">
+        <label for="service">Услуга</label>
+        <input type="text" id="service" readonly />
+      </div>
+      <button type="submit" class="cta">Назначить сессию</button>
+      <div class="form-feedback success">
